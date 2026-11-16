@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vusale Safarova Beauty · Hediye Çarkı</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#fbf1ee; --ink:#3a1230; --muted:#7d5a74; --card:#ffffff; --line:#ecd3cf; --accent:#8c2f5f; --accent-ink:#fff; --gold:#c9a14a;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#26091f;--ink:#fbeee9;--muted:#cfa9c2;--card:#3a1230;--line:#5c2a4f;--accent:#e2b65c;--accent-ink:#26091f;--gold:#e2b65c}
+}
+:root[data-theme="dark"]{--bg:#26091f;--ink:#fbeee9;--muted:#cfa9c2;--card:#3a1230;--line:#5c2a4f;--accent:#e2b65c;--accent-ink:#26091f;--gold:#e2b65c}
+*{box-sizing:border-box}
+html,body{margin:0;overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:'Jost',system-ui,sans-serif;min-height:100vh;display:flex;justify-content:center;padding:28px 18px 40px}
+main{width:100%;max-width:440px;text-align:center}
+h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:2.3rem;line-height:1.05;margin:0 0 6px}
+.brand{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.15rem;color:var(--muted);margin:0 0 20px}
+p{line-height:1.5;margin:0 0 14px}
+.muted{color:var(--muted);font-size:.95rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;text-align:left}
+label{display:block;font-weight:500;font-size:.92rem;margin:0 0 6px}
+input{width:100%;font:inherit;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--ink);margin-bottom:14px}
+input:focus,button:focus-visible,a.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.btn{display:block;width:100%;font:inherit;font-weight:600;font-size:1.05rem;text-align:center;text-decoration:none;padding:14px;border-radius:999px;border:0;background:var(--accent);color:var(--accent-ink);cursor:pointer}
+.btn[disabled]{opacity:.55;cursor:default}
+.btn.wa{background:#1f9d55;color:#fff;margin-top:10px}
+.err{color:#c2352f;font-size:.9rem;min-height:1.2em;margin:-6px 0 8px}
+.hidden{display:none}
+.wheel-wrap{position:relative;left:50%;transform:translateX(-50%);width:min(calc(100vw - 24px),66vh,520px);aspect-ratio:1;margin:10px 0 18px;flex:none}
+#step-wheel:not(.hidden){display:flex;flex-direction:column;min-height:calc(100svh - 130px)}
+#spin{margin:auto 0;font-size:1.6rem;padding:22px;box-shadow:0 8px 20px rgba(58,18,48,.3)}
+.wheel-wrap canvas{width:100%;height:100%;border-radius:50%;box-shadow:0 0 0 8px var(--gold),0 14px 34px rgba(58,18,48,.35);transition:transform 5.2s cubic-bezier(.12,.62,.08,1)}
+.pointer{position:absolute;left:50%;top:-14px;width:0;height:0;transform:translateX(-50%);border-left:15px solid transparent;border-right:15px solid transparent;border-top:30px solid var(--accent);filter:drop-shadow(0 2px 2px rgba(0,0,0,.3));z-index:2}
+.hub{position:absolute;inset:0;margin:auto;width:15%;aspect-ratio:1;border-radius:50%;background:var(--gold);border:4px solid #fff;display:grid;place-items:center;z-index:1;padding:3px}
+.prize{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:700;line-height:1.1;margin:6px 0 10px}
+.code{display:inline-block;font-weight:600;letter-spacing:.12em;padding:8px 16px;border:2px dashed var(--gold);border-radius:10px;margin:4px 0 14px}
+.deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.deco svg{position:absolute;width:clamp(80px,26vw,140px);height:auto;opacity:.95}
+.d1{top:-22px;left:-22px}.d2{top:-10px;right:-30px;transform:rotate(40deg)}.d3{bottom:-26px;left:-30px;transform:rotate(20deg)}.d4{bottom:-20px;right:-22px;transform:rotate(-30deg)}
+.d5{top:34%;left:-44px;width:clamp(60px,18vw,100px)!important}.d6{top:46%;right:-44px;width:clamp(60px,18vw,100px)!important}
+main{position:relative;z-index:1}
+.wf{position:absolute;width:17%;height:auto;z-index:3;filter:drop-shadow(0 2px 3px rgba(58,18,48,.3))}
+.wf1{top:-3%;left:-2%}.wf2{top:-3%;right:-2%;transform:rotate(30deg)}.wf3{bottom:-3%;left:-2%;transform:rotate(15deg)}.wf4{bottom:-3%;right:-2%;transform:rotate(-20deg)}
+.hub svg{width:100%;height:100%}
+#spin:not([disabled]){animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.spinning .pointer{transform-origin:50% 0;animation:tick .12s ease-in-out infinite alternate}
+@keyframes tick{from{transform:translateX(-50%) rotate(-12deg)}to{transform:translateX(-50%) rotate(9deg)}}
+.spinning canvas{animation:glow .9s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 8px var(--gold),0 0 18px rgba(226,182,92,.35)}50%{box-shadow:0 0 0 8px var(--gold),0 0 56px 10px rgba(240,200,110,.95)}}
+.spinning .hub svg{animation:rot 1.2s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.petal{position:fixed;top:-30px;width:14px;height:20px;border-radius:70% 0 70% 0;z-index:5;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translate3d(var(--dx),112vh,0) rotate(var(--rot))}}
+@media (prefers-reduced-motion:reduce){#spin,.spinning .pointer,.spinning canvas,.spinning .hub svg{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.wheel-wrap canvas{transition-duration:.5s}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="fl" viewBox="-50 -50 100 100">
+<g fill="var(--p,#e88fb0)" stroke="#fff" stroke-opacity=".6" stroke-width="1">
+<ellipse cx="0" cy="-23" rx="13" ry="23"/><ellipse cx="0" cy="-23" rx="13" ry="23" transform="rotate(60)"/><ellipse cx="0" cy="-23" rx="13" ry="23" transform="rotate(120)"/><ellipse cx="0" cy="-23" rx="13" ry="23" transform="rotate(180)"/><ellipse cx="0" cy="-23" rx="13" ry="23" transform="rotate(240)"/><ellipse cx="0" cy="-23" rx="13" ry="23" transform="rotate(300)"/>
+</g>
+<circle r="11" fill="var(--c,#c9a14a)"/><circle r="4" fill="#fff" fill-opacity=".5"/>
+</symbol>
+</defs></svg>
+<div class="deco" aria-hidden="true">
+<svg class="d1" viewBox="0 0 100 100"><use href="#fl" style="--p:#e88fb0"/></svg>
+<svg class="d2" viewBox="0 0 100 100"><use href="#fl" style="--p:#f4c6b8"/></svg>
+<svg class="d3" viewBox="0 0 100 100"><use href="#fl" style="--p:#c9689a"/></svg>
+<svg class="d4" viewBox="0 0 100 100"><use href="#fl" style="--p:#e88fb0"/></svg>
+<svg class="d5" viewBox="0 0 100 100"><use href="#fl" style="--p:#f4c6b8"/></svg>
+<svg class="d6" viewBox="0 0 100 100"><use href="#fl" style="--p:#c9689a"/></svg>
+</div>
+<main>
+  <h1>Hediye Çarkı</h1>
+  <p class="brand">Vusale Safarova Beauty</p>
+
+  <section id="step-form" class="card">
+    <p class="muted">Bilgilerini yaz, çarkı çevir, kazandığın hediyeyi hemen öğren.</p>
+    <label for="name">Adın soyadın</label>
+    <input id="name" autocomplete="name" placeholder="Örn. Ayşe Yılmaz">
+    <label for="phone">Telefon numaran</label>
+    <input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx">
+    <div class="err" id="err" role="alert"></div>
+    <button class="btn" id="go">Çarka geç</button>
+  </section>
+
+  <section id="step-wheel" class="hidden">
+    <div class="wheel-wrap">
+      <div class="pointer"></div>
+      <svg class="wf wf1" viewBox="0 0 100 100" aria-hidden="true"><use href="#fl" style="--p:#f4c6b8"/></svg>
+      <svg class="wf wf2" viewBox="0 0 100 100" aria-hidden="true"><use href="#fl" style="--p:#e88fb0"/></svg>
+      <svg class="wf wf3" viewBox="0 0 100 100" aria-hidden="true"><use href="#fl" style="--p:#e88fb0"/></svg>
+      <svg class="wf wf4" viewBox="0 0 100 100" aria-hidden="true"><use href="#fl" style="--p:#f4c6b8"/></svg>
+      <canvas id="wheel" width="720" height="720" aria-label="Hediye çarkı"></canvas>
+      <div class="hub"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#fl" style="--p:#fff;--c:#8c2f5f"/></svg></div>
+    </div>
+    <button class="btn" id="spin">Çarkı çevir</button>
+  </section>
+
+  <section id="step-result" class="card hidden" style="text-align:center">
+    <p class="muted" id="hello"></p>
+    <div class="prize" id="prize"></div>
+    <div class="code" id="code"></div>
+    <p class="muted">Bu kodu salonda göstererek hediyeni kullanabilirsin. Aşağıdaki butonla sonucu bize WhatsApp’tan ilet.</p>
+    <a class="btn wa" id="wa" target="_blank" rel="noopener">Sonucu WhatsApp’tan gönder</a>
+  </section>
+</main>
+
+<script>
+/* ====== BURAYI DÜZENLE ====== */
+var SALON_PHONE = "905461703506"; // Salon WhatsApp numarası: ülke kodu ile, + ve boşluk olmadan (örn. 905321234567)
+var PRIZES = [
+  "%10 İndirim","Ücretsiz Kaş Şekillendirme","%15 İndirim","Ücretsiz Maske Bakımı",
+  "%20 İndirim","Ücretsiz Manikür","%5 İndirim","Sürpriz Hediye"
+];
+// Çıkma oranları (%), PRIZES sırasıyla. Toplamı 100 olmalı.
+var WEIGHTS = [30,3,20,3,6,2,32,4];
+/* ============================ */
+
+var COLORS = ["#8c2f5f","#e8b4b0","#5a1a45","#f3d9c4","#a8446f","#d9a066","#3a1230","#f0c9c6"];
+var TEXT   = ["#fff","#3a1230","#fff","#3a1230","#fff","#3a1230","#fff","#3a1230"];
+var canvas = document.getElementById("wheel"), ctx = canvas.getContext("2d");
+var N = PRIZES.length, SEG = 360 / N, rotation = 0, spun = false, user = {};
+
+function wrapText(t){
+  var w = t.split(" "), lines = [], cur = "";
+  w.forEach(function(x){ if((cur+" "+x).trim().length > 13 && cur){ lines.push(cur); cur = x; } else { cur = (cur+" "+x).trim(); } });
+  if(cur) lines.push(cur); return lines;
+}
+function draw(){
+  var c = 360, r = 350;
+  ctx.clearRect(0,0,720,720);
+  for(var i=0;i<N;i++){
+    var a0 = (i*SEG - 90) * Math.PI/180, a1 = ((i+1)*SEG - 90) * Math.PI/180;
+    ctx.beginPath(); ctx.moveTo(c,c); ctx.arc(c,c,r,a0,a1); ctx.closePath();
+    ctx.fillStyle = COLORS[i % COLORS.length]; ctx.fill();
+    ctx.strokeStyle = "rgba(255,255,255,.7)"; ctx.lineWidth = 3; ctx.stroke();
+    ctx.save(); ctx.translate(c,c); ctx.rotate(((i+.5)*SEG-90)*Math.PI/180);
+    ctx.fillStyle = TEXT[i % TEXT.length]; ctx.textAlign = "right"; ctx.font = "600 34px Jost, Arial, sans-serif"; ctx.textBaseline = "middle"; ctx.shadowColor = "rgba(0,0,0,.25)"; ctx.shadowBlur = 3;
+    var lines = wrapText(PRIZES[i]);
+    lines.forEach(function(l,k){ ctx.fillText(l, r-30, -(lines.length-1)*19 + k*38); });
+    ctx.restore();
+  }
+}
+/* Metin çizimi sağa hizalı ve segment ortasında; çark üstte işaretçiye göre döner */
+try{ if(document.fonts){ document.fonts.load("600 34px Jost").then(function(){ draw(); }); } }catch(e){}
+function petals(){
+  if(window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+  var cols = ["#e88fb0","#f4c6b8","#c9689a","#e2b65c","#fff"];
+  for(var i=0;i<46;i++){
+    var d = document.createElement("div"); d.className = "petal";
+    d.style.left = Math.random()*100 + "vw"; d.style.background = cols[i % cols.length];
+    d.style.setProperty("--dx", (Math.random()*160-80) + "px"); d.style.setProperty("--rot", (Math.random()*720-360) + "deg");
+    d.style.animationDuration = (2.8 + Math.random()*2.4) + "s"; d.style.animationDelay = (Math.random()*1.2) + "s";
+    document.body.appendChild(d); (function(el){ setTimeout(function(){ el.remove(); }, 7000); })(d);
+  }
+}
+function show(id){ ["step-form","step-wheel","step-result"].forEach(function(s){ document.getElementById(s).classList.toggle("hidden", s!==id); }); }
+function genCode(){ var s="", a="ABCDEFGHJKLMNPRSTUVYZ23456789"; for(var i=0;i<5;i++) s += a[Math.floor(Math.random()*a.length)]; return "VSB-"+s; }
+
+try{ var saved = JSON.parse(localStorage.getItem("vsb_wheel_result")||"null"); if(saved){ user = saved; spun = true; showResult(); } }catch(e){}
+
+document.getElementById("go").onclick = function(){
+  var n = document.getElementById("name").value.trim(), p = document.getElementById("phone").value.trim(), err = document.getElementById("err");
+  if(n.length < 3){ err.textContent = "Lütfen adını ve soyadını yaz."; return; }
+  if(p.replace(/\D/g,"").length < 10){ err.textContent = "Lütfen geçerli bir telefon numarası yaz."; return; }
+  err.textContent = ""; user = {name:n, phone:p}; draw(); show("step-wheel");
+};
+
+document.getElementById("spin").onclick = function(){
+  if(spun) return; spun = true;
+  var btn = this; btn.disabled = true; btn.textContent = "Çark dönüyor…";
+  var tot = WEIGHTS.reduce(function(a,b){return a+b;},0), roll = Math.random()*tot, idx = 0;
+  for(var k=0;k<N;k++){ roll -= WEIGHTS[k]; if(roll < 0){ idx = k; break; } }
+  var jitter = (Math.random()-.5) * SEG * .6;
+  rotation += 360*6 + (360 - ((rotation % 360))) % 360 + (360 - (idx+.5)*SEG) + jitter;
+  canvas.style.transform = "rotate(" + rotation + "deg)";
+  var wrap = document.querySelector(".wheel-wrap"), ptr = document.querySelector(".pointer");
+  wrap.classList.add("spinning");
+  setTimeout(function(){ ptr.style.animationDuration = ".22s"; }, 3000);
+  setTimeout(function(){ ptr.style.animationDuration = ".45s"; }, 4400);
+  user.prize = PRIZES[idx]; user.code = genCode();
+  setTimeout(function(){
+    try{ localStorage.setItem("vsb_wheel_result", JSON.stringify(user)); }catch(e){}
+    document.querySelector(".wheel-wrap").classList.remove("spinning"); showResult(); petals();
+  }, 5500);
+};
+
+function showResult(){
+  document.getElementById("hello").textContent = "Tebrikler " + user.name.split(" ")[0] + "! Kazandığın hediye:";
+  document.getElementById("prize").textContent = user.prize;
+  document.getElementById("code").textContent = "Kod: " + user.code;
+  var msg = "Merhaba, Hediye Çarkı’ndan *" + user.prize + "* kazandım! 🎉\n" +
+            "Ad Soyad: " + user.name + "\nTelefon: " + user.phone + "\nKod: " + user.code;
+  document.getElementById("wa").href = "https://wa.me/" + SALON_PHONE + "?text=" + encodeURIComponent(msg);
+  show("step-result");
+}
+</script>
+</body>
+</html>
